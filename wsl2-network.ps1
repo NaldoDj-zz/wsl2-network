@@ -151,10 +151,10 @@ function wsl2-network {
           $msg="netsh interface portproxy delete v4tov4 listenport=$port listenaddress=$addr";
 
           Write-Progress -id 0 `
-                           -Activity "Processando [$i]/[$($ports.length)]" `
-                           -PercentComplete "$nPercent" `
-                           -Status ("$msg "+($nPercent)+"%");
-
+                               -Activity "Processando [$i]/[$($ports.length)]" `
+                               -PercentComplete $nPercent `
+                               -Status ("$nPercent % "+$msg.Substring(26).Replace("listen",""))`
+                               -CurrentOperation $msg.Substring(26).Replace("listen","");
           iex $msg;
 
           If(!$Delete) {
@@ -163,8 +163,9 @@ function wsl2-network {
 
               Write-Progress -id 1 `
                                -Activity "Processando [$i]/[$($ports.length)]" `
-                               -PercentComplete "$nPercent" `
-                               -Status ("$msg "+($nPercent)+"%");
+                               -PercentComplete $nPercent `
+                               -Status ("$nPercent % "+$msg.Substring(26).Replace("listen",""))`
+                               -CurrentOperation $msg.Substring(26).Replace("listen","");
 
               iex $msg;
 
